@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { StyleSheet, Text, ScrollView } from 'react-native';
+import { StyleSheet, Text, ScrollView, View } from 'react-native';
 
 export default class Layout extends React.Component {
   render() {
@@ -9,7 +9,9 @@ export default class Layout extends React.Component {
         {!!this.props.subtitle && (
           <Text style={styles.subtitle}>{this.props.subtitle}</Text>
         )}
-        {this.props.children}
+        <View style={styles.childrens}>
+          {this.props.children}
+        </View>
       </ScrollView>
     )
   }
@@ -18,12 +20,13 @@ export default class Layout extends React.Component {
 const styles = StyleSheet.create({
   wrapper: {
     padding: 35,
-    paddingTop: 100
+    paddingBottom: 0
   },
   title: {
     fontSize: 50,
     fontWeight: '700',
-    color: "#383F51"
+    color: "#383F51",
+    paddingTop: 100
   },
   subtitle: {
     fontSize: 18,
@@ -31,5 +34,8 @@ const styles = StyleSheet.create({
     marginTop: 15,
     marginBottom: 35,
     color: "#383F51"
+  },
+  childrens: {
+    marginBottom: 50
   }
 });
