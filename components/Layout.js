@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
     paddingTop: 100
   },
   title: {
-    fontSize: 35,
+    fontSize: 50,
     fontWeight: '700',
     color: "#383F51"
   },

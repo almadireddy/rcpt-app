@@ -44,7 +44,9 @@ export default class List extends React.Component {
               <View key={element._id} style={styles.listItem}>
                 <View style={styles.listItemHeader}>
                   <Text style={styles.business}>{element.business}</Text>
-                  <Text style={styles.date}>{element.date.substring(5, 10) + '-' + element.date.substring(0, 4)}</Text>
+                  {!!element.date && (
+                    <Text style={styles.date}>{element.date.substring(5, 10) + '-' + element.date.substring(0, 4)}</Text>
+                  )}
                 </View>
                 <View style={styles.listItemContent}>
                   <Text style={styles.price}>${parseFloat(Math.round(element.totalCost * 100) / 100).toFixed(2)}</Text>
