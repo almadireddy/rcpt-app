@@ -2,13 +2,6 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { Camera, Permissions, FaceDetector, DangerZone } from 'expo';
 import { NavigationNavigator } from "react-navigation";
-import {Buffer} from 'buffer';
-
-function btoa(str) {
-  let buffer = Buffer.from(str.toString(), 'binary');
-  return buffer.toString('base64');
-}
-
 export default class Login extends React.Component {
   constructor(props) {
     super(props)
@@ -79,6 +72,7 @@ export default class Login extends React.Component {
       motion: rotation.accelerationIncludingGravity
     });
   }
+
 
   detectFaces(doDetect) {
     this.setState({
@@ -199,27 +193,13 @@ export default class Login extends React.Component {
     });
     if (this.camera) {
       this.camera.takePictureAsync({ 
-        onPictureSaved: this.onPictureSaved,
-        base64: true 
+        onPictureSaved: this.onPictureSaved, 
       });
     }
   }
 
-  onPictureSaved = async (e) => {
+  onPictureSaved = (e) => {
     this.props.navigation.navigate('Home')
-    // let baseURL = 'https://westcentralus.api.cognitive.microsoft.com/face/v1.0/detect'
-    
-    // let b = btoa(e.base64)
-    // let face1 = await fetch(baseURL, {
-    //   method: 'POST',
-    //   data: b,
-    //   headers: {
-    //     "Content-Type": "application/octet-stream",
-    //     "Ocp-Apim-Subscription-Key": "4d1dfc9d694f4bada3d00c9d4782d472"
-    //   }
-    // })
-    // let resp = await face1.json();
-    // console.log(resp.faceId)
   }
 }
 
