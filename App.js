@@ -24,9 +24,12 @@ export default class App extends React.Component {
   render() {
     return(
       <ScrollView style={styles.wrapper}>
-
         <Text style={styles.title}>RCPT</Text>
         <Text style={styles.subtitle}>Track your receipts using Image Processing and awesome microservices</Text>
+
+        <View style={styles.buttonWrapper}>
+          <Button>Press Me</Button>
+        </View>
 
         <View style={styles.listWrapper}>
           {this.state.data && this.state.data.map(element => {
