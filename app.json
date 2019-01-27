@@ -22,8 +22,22 @@
     "assetBundlePatterns": [
       "**/*"
     ],
+    "android": {
+      "package": "tamuhack.rcpt",
+      "publishBundlePath": "android/app/src/main/assets/shell-app.bundle",
+      "publishManifestPath": "android/app/src/main/assets/shell-app-manifest.json"
+    },
     "ios": {
-      "supportsTablet": true
-    }
+      "supportsTablet": true,
+      "bundleIdentifier": "tamuhack.rcpt",
+      "publishBundlePath": "ios/rcpt/Supporting/shell-app.bundle",
+      "publishManifestPath": "ios/rcpt/Supporting/shell-app-manifest.json"
+    },
+    "isDetached": true,
+    "detach": {
+      "iosExpoViewUrl": "https://s3.amazonaws.com/exp-exponent-view-code/ios-v2.10.2-sdk32.0.0-c59c23cd-1d49-49d2-a633-d03f9d554cf6.tar.gz",
+      "androidExpoViewUrl": "https://s3.amazonaws.com/exp-exponent-view-code/android-v2.10.5-sdk32.0.0-6b87ee30-8cbe-4cc6-b5ba-b03b77e34f90.tar.gz"
+    },
+    "scheme": "expc7170e6b9e3a4506a40f68a6246bc6c6"
   }
 }
