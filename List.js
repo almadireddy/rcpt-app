@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View, Button, ScrollView } from 'react-native';
+import Layout from "./components/Layout";
 
 export default class List extends React.Component {
   constructor(props) {
@@ -21,14 +22,20 @@ export default class List extends React.Component {
       });
   }
 
-  render() {
-    return (
-      <ScrollView style={styles.wrapper}>
-        <Text style={styles.title}>RCPT</Text>
-        <Text style={styles.subtitle}>Track your receipts using Image Processing and awesome microservices</Text>
+  static navigationOptions = {
+    title: 'RCPT',
+  };
 
+  render() {
+    const { navigate } = this.props.navigation;
+
+    return (
+      <Layout title="RCPT" subtitle="Track your receipts using Image Processing and awesome microservices">
         <View style={styles.buttonWrapper}>
-          <Button>Press Me</Button>
+          <Button
+            title="Track Spending"
+            onPress={() => navigate('Stats', { name: 'Stats' })}
+          />
         </View>
 
         <View style={styles.listWrapper}>
@@ -46,7 +53,7 @@ export default class List extends React.Component {
             )
           })}
         </View>
-      </ScrollView>
+      </Layout>
     )
   }
 }
@@ -89,21 +96,6 @@ const styles = StyleSheet.create({
   date: {
     fontSize: 16,
     color: '#383F51'
-  },
-  wrapper: {
-    padding: 35,
-    paddingTop: 100
-  },
-  title: {
-    fontSize: 50,
-    fontWeight: '700',
-    color: "#383F51"
-  },
-  subtitle: {
-    fontSize: 18,
-    fontWeight: '300',
-    marginTop: 15,
-    color: "#383F51"
   },
   listWrapper: {
     marginTop: 50

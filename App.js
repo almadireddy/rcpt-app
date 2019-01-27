@@ -1,4 +1,4 @@
-import { createStackNavigator, createAppNavigator } from 'react-navigation';
+import { createStackNavigator, createAppContainer } from 'react-navigation';
 import List from './List';
 import Stats from './Stats';
 
@@ -7,6 +7,6 @@ const MainNavigator = createStackNavigator({
   Stats: { screen: Stats },
 });
 
-const App = createAppNavigator(MainNavigator);
+const App = createAppContainer(MainNavigator);
 
 export default App;
