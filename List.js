@@ -1,11 +1,18 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, Button, ScrollView, Icon } from 'react-native';
 import Layout from "./components/Layout";
+import { FAB } from 'react-native-paper';
+import { Camera, Permissions } from 'expo';
 
 export default class List extends React.Component {
   constructor(props) {
     super(props);
     this.state = { isLoading: true }
+    this.handleAdd = this.handleAdd.bind(this)
+  }
+
+  async handleAdd() {
+    this.props.navigation.navigate('NewReceipt', { name: 'Add Receipt' })
   }
 
   componentDidMount() {
@@ -30,32 +37,41 @@ export default class List extends React.Component {
     const { navigate } = this.props.navigation;
 
     return (
-      <Layout title="RCPT" subtitle="Track your receipts using Image Processing and awesome microservices">
-        <View style={styles.buttonWrapper}>
-          <Button
-            title="Track Spending"
-            onPress={() => navigate('Stats', { name: 'Stats' })}
+      <>
+        <Layout title="RCPT" subtitle="Track your receipts using Image Processing and awesome microservices">
+          <View style={styles.buttonWrapper}>
+            <Button
+              title="Track Spending"
+              onPress={() => navigate('Stats', { name: 'Stats' })}
+            />
+          </View>
+
+          <View style={styles.listWrapper}>
+            {this.state.data && this.state.data.map(element => {
+              return (
+                <View key={element._id} style={styles.listItem}>
+                  <View style={styles.listItemHeader}>
+                    <Text style={styles.business}>{element.business}</Text>
+                    {!!element.date && (
+                      <Text style={styles.date}>{element.date.substring(5, 10) + '-' + element.date.substring(0, 4)}</Text>
+                    )}
+                  </View>
+                  <View style={styles.listItemContent}>
+                    <Text style={styles.price}>${parseFloat(Math.round(element.totalCost * 100) / 100).toFixed(2)}</Text>
+                  </View>
+                </View>
+              )
+            })}
+          </View>
+        </Layout>
+        <View style={styles.footer}>
+          <FAB
+            style={styles.fab}
+            icon="add"
+            onPress={this.handleAdd}
           />
         </View>
-
-        <View style={styles.listWrapper}>
-          {this.state.data && this.state.data.map(element => {
-            return (
-              <View key={element._id} style={styles.listItem}>
-                <View style={styles.listItemHeader}>
-                  <Text style={styles.business}>{element.business}</Text>
-                  {!!element.date && (
-                    <Text style={styles.date}>{element.date.substring(5, 10) + '-' + element.date.substring(0, 4)}</Text>
-                  )}
-                </View>
-                <View style={styles.listItemContent}>
-                  <Text style={styles.price}>${parseFloat(Math.round(element.totalCost * 100) / 100).toFixed(2)}</Text>
-                </View>
-              </View>
-            )
-          })}
-        </View>
-      </Layout>
+      </>
     )
   }
 }
@@ -101,5 +117,11 @@ const styles = StyleSheet.create({
   },
   listWrapper: {
     marginTop: 50
-  }
+  },
+  fab: {
+    position: 'absolute',
+    margin: 16,
+    right: 0,
+    bottom: 0,
+  },
 });
