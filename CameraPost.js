@@ -3,7 +3,6 @@ import { StyleSheet, Text, View, Button, ScrollView, Icon } from 'react-native';
 import Layout from "./components/Layout";
 import { FAB } from 'react-native-paper';
 import { Camera, Permissions, FileSystem } from 'expo';
-import RNFS from 'react-native-fs'
 
 export default class CameraPost extends React.Component {
   constructor(props){
