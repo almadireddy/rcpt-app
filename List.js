@@ -1,18 +1,33 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button, ScrollView, Icon } from 'react-native';
+import { StyleSheet, Text, View, Button, Image, TouchableOpacity } from 'react-native';
 import Layout from "./components/Layout";
 import { FAB } from 'react-native-paper';
-import { Camera, Permissions } from 'expo';
+import Modal from 'react-native-modal';
 
 export default class List extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { isLoading: true }
+    this.state = { 
+      isLoading: true, 
+      bigImage: null, 
+      visible: false 
+    };
     this.handleAdd = this.handleAdd.bind(this)
+    this.handlePress = this.handlePress.bind(this)
+    this.hideModal = this.hideModal.bind(this)
   }
 
   async handleAdd() {
     this.props.navigation.navigate('NewReceipt', { name: 'Add Receipt' })
+  }
+
+  handlePress(img) {
+    let imgSrc = `https://utdcometmarketing.com/api/${img}`
+    this.setState({ bigImage: imgSrc, visible: true }) 
+  }
+
+  hideModal() {
+    this.setState({visible: false})
   }
 
   componentDidMount() {
@@ -38,18 +53,25 @@ export default class List extends React.Component {
 
     return (
       <>
+        <Modal isVisible={this.state.visible}>
+          <TouchableOpacity onPress={this.hideModal} style={styles.modal}>
+            <Image source={{uri: this.state.bigImage}} style={styles.bigImage}/>
+          </TouchableOpacity>
+        </Modal>
         <Layout title="RCPT" subtitle="Track your receipts using Image Processing and awesome microservices">
           <View style={styles.buttonWrapper}>
             <Button
-              title="Track Spending"
+              raised
+              title="Money Tracker"
+              style={styles.trackerButton}
               onPress={() => navigate('Stats', { name: 'Stats' })}
             />
-          </View>
+          </View> 
 
           <View style={styles.listWrapper}>
             {this.state.data && this.state.data.map(element => {
-              return (
-                <View key={element._id} style={styles.listItem}>
+              return ( 
+                <TouchableOpacity onPress={() => this.handlePress(element.image)} key={element._id} style={styles.listItem}>
                   <View style={styles.listItemHeader}>
                     <Text style={styles.business}>{element.business}</Text>
                     {!!element.date && (
@@ -59,7 +81,7 @@ export default class List extends React.Component {
                   <View style={styles.listItemContent}>
                     <Text style={styles.price}>${parseFloat(Math.round(element.totalCost * 100) / 100).toFixed(2)}</Text>
                   </View>
-                </View>
+                </TouchableOpacity>
               )
             })}
           </View>
@@ -124,4 +146,17 @@ const styles = StyleSheet.create({
     right: 0,
     bottom: 0,
   },
+  bigImage: {
+    width: 200,
+    height: 500
+  },
+  modal: {
+    justifyContent: "center",
+    alignItems: "center",
+    flex: 1
+  },
+  trackerButton: {
+    backgroundColor: '#383F51',
+    padding: 10
+  }
 });

@@ -46,9 +46,16 @@ export default class CameraPost extends React.Component {
   }
 
   onPictureSaved = async (e) => {
-    console.log(e)
+    const filename = new Date().getTime() + '.jpg';
+    const image = FileSystem.documentDirectory + filename;
+
+    let x = await FileSystem.copyAsync({
+      from: e.uri,
+      to: image
+    });
+
     let photo = {
-      uri: e.uri,
+      uri: image,
       type: 'image/jpeg',
       name: 'photo.jpg',
     };

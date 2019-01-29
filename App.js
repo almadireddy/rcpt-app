@@ -11,7 +11,6 @@ const MainNavigator = createStackNavigator({
   NewReceipt: { screen: CameraPost }
 });
 
-
 const App = createAppContainer(MainNavigator);
 
 export default App;

@@ -23,10 +23,10 @@ const styles = StyleSheet.create({
     paddingBottom: 0
   },
   title: {
-    fontSize: 50,
+    fontSize: 65,
     fontWeight: '700',
     color: "#383F51",
-    paddingTop: 100
+    paddingTop: 50
   },
   subtitle: {
     fontSize: 18,
